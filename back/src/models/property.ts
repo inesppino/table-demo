@@ -4,4 +4,5 @@ export interface Property {
   address: string;
   city: string;
   image: string | null;
+  id: string;
 }
