@@ -1,32 +1,21 @@
-# React + TypeScript + Vite
+# Spotaroom front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This front is build with vite and a react-typescript template that shows a list of properties returned by an api.
 
-Currently, two official plugins are available:
+## How to run the app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Run `nvm use` in the terminal.
+- Run `npm install` the first time you access the repo to install all dependencies.
 
-## Expanding the ESLint configuration
+### Development mode
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Run `npm run dev` to load the project locally.
 
-- Configure the top-level `parserOptions` property like this:
+### Production mode
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
+- Run `npm run build` to create the build folder with minified and concat assets.
+- Run `npm run preview` to serve the build at localhost.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Requirements
 
-En montar parte front sin estilos ni nada, simplemente enseñando mocked data: 30mins
+It is recommended to have `nvm` installed in order to manage Node versions.
