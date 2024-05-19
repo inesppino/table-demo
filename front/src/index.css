@@ -34,9 +34,16 @@ a {
   }
 }
 
+@media (max-width: 768px) {
+  .table {
+    min-width: 650px;
+  }
+}
+
 .table__image {
   max-width: 150px;
   height: auto;
-  width: auto;
+  width: 100%;
+  object-fit: cover;
   border-radius: var(--radius-m);
 }

@@ -23,11 +23,8 @@ interface CustomTableProps {
 
 const CustomTable = ({ rows }: CustomTableProps) => {
   return (
-    <TableContainer
-      component={Paper}
-      // sx={{ maxWidth: 1200, margin: "auto", mt: 3 }}
-    >
-      <Table aria-label="properties table">
+    <TableContainer component={Paper}>
+      <Table aria-label="properties table" className="table">
         <TableHead>
           <TableRow>
             <TableCell>Image</TableCell>
