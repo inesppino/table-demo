@@ -1,18 +1,20 @@
 import axios from "axios";
 import { Property } from "../domain/property";
-import { PropertyRepository } from "../domain/property-repository";
-
-// const REMOTE_JSON_FEED_URL =
-//   "https://feeds.datafeedwatch.com/35132/f3b6e4d541f33f9dc433d024ecf6b1abf12d9488.json";
+import {
+  PropertyRepository,
+  PropertyServiceOptions,
+} from "../domain/property-repository";
 
 export class JsonFeedRepository implements PropertyRepository {
   constructor(private readonly url: string) {}
 
-  async getAllProperties(): Promise<Property[]> {
+  async getAllProperties(
+    options?: PropertyServiceOptions
+  ): Promise<Property[]> {
     const response = await axios.get(this.url);
     const data = response.data;
 
-    return data.products.map(
+    const properties = data.products.map(
       (property: any) =>
         new Property(
           property.title,
@@ -23,5 +25,18 @@ export class JsonFeedRepository implements PropertyRepository {
           property.id
         )
     );
+
+    if (options) {
+      const sortFn =
+        options.order === "asc"
+          ? (a: Property, b: Property) =>
+              a[options.key].localeCompare(b[options.key])
+          : (a: Property, b: Property) =>
+              b[options.key].localeCompare(a[options.key]);
+
+      properties.sort(sortFn);
+    }
+
+    return properties;
   }
 }

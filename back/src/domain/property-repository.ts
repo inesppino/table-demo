@@ -1,5 +1,9 @@
 import { Property } from "./property";
 
+export interface PropertyServiceOptions {
+  key: keyof Property;
+  order: string;
+}
 export interface PropertyRepository {
-  getAllProperties(): Promise<Property[]>;
+  getAllProperties(options?: PropertyServiceOptions): Promise<Property[]>;
 }
