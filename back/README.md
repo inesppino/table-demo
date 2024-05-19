@@ -9,7 +9,14 @@ This back is build with NodeJS and Express and has an endpoint that returns a li
 
 ### Development mode
 
-- Run `npm run start` to load the project locally.
+- Copy .env.template and rename it to .env
+- Run `npm run dev` to load the project locally.
+
+### Production mode
+
+- Set env variables
+- Run `npm run build` to build the project.
+- Run `npm run start` to load the build project.
 
 ## Requirements
 
