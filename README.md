@@ -9,18 +9,11 @@ This repo is a monorepo containing the front and back of an application. This ap
 
 ### Front
 
-- Run `nvm use` in the terminal.
-- Run `npm install` the first time you access the repo to install all dependencies.
-- Run `npm run dev` to load the project locally.
-  or
-- Run `npm run build` to create the build folder with minified and concat assets.
-- Run `npm run preview` to serve the build at localhost.
+- Follow instructions of [README.md](./front/README.md) in front folder
 
 ### Back
 
-- Run `nvm use` in the terminal.
-- Run `npm install` the first time you access the repo to install all dependencies.
-- Run `npm run start` to load the project locally.
+- Follow instructions of [README.md](./back/README.md) in back folder
 
 ## Requirements
 
