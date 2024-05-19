@@ -1,85 +1,65 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 import { useEffect, useState } from "react";
+import { CircularProgress, Container, Typography } from "@mui/material";
+import { fetchAllProperties } from "./services/fetchAllProperties";
+import CustomTable from "./components/Table";
+import HomeIcon from "@mui/icons-material/Home";
 
 export interface Property {
   title: string;
   link: string;
   address: string;
   city: string;
-  image: string | null;
+  image: string;
   id: string;
 }
 
 function App() {
   const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchProperties();
   }, []);
 
   const fetchProperties = async () => {
-    const response = await fetch("http://localhost:3000/api/properties");
-    const data = await response.json();
-    console.log(data);
+    const data = await fetchAllProperties();
     setProperties(data);
+    setLoading(false);
   };
 
-  if (properties.length === 0) {
-    <h2>Loading...</h2>;
+  if (loading) {
+    return (
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "20vh" }}
+      >
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
-    <main>
-      <h1>Spot A Room</h1>
-
-      <section>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Title</TableCell>
-                <TableCell align="right">Link</TableCell>
-                <TableCell align="right">City</TableCell>
-                <TableCell align="right">Address</TableCell>
-                <TableCell align="right">Image</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {properties.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.title}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.link}
-                  </TableCell>
-                  <TableCell align="right">{row.city}</TableCell>
-                  <TableCell align="right">{row.address}</TableCell>
-                  <TableCell align="right">
-                    <img
-                      src={row.image}
-                      alt={row.title}
-                      className="table-image"
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </section>
-    </main>
+    <>
+      <header className="header">
+        <Typography variant="h1" align="center">
+          Spotaroom
+        </Typography>
+        <HomeIcon fontSize="medium" />
+      </header>
+      <main className="main">
+        <Container
+          component="section"
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        >
+          <Typography variant="h2" align="left" gutterBottom>
+            Properties
+          </Typography>
+          <CustomTable rows={properties} />
+        </Container>
+      </main>
+      <footer className="footer">
+        <Typography variant="body2">Inés Pedraza Pino - 2024</Typography>
+      </footer>
+    </>
   );
 }
 
