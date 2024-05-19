@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Property, fetchAllProperties } from "../services/fetchAllProperties";
 
-const useProperties = () => {
+const useProperties = (sort: string, key: string) => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchProperties = async () => {
+  const fetchProperties = useCallback(async () => {
     try {
-      const data = await fetchAllProperties();
+      const options = key !== "" ? { key, order: sort } : undefined;
+      const data = await fetchAllProperties(options);
       setProperties(data);
     } catch (error) {
       if (error instanceof Error) {
@@ -20,13 +21,18 @@ const useProperties = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [key, sort]);
 
   useEffect(() => {
     fetchProperties();
-  }, []);
+  }, [fetchProperties]);
 
-  return { properties, loading, error, refetch: fetchProperties };
+  return {
+    properties,
+    loading,
+    error,
+    refetch: fetchProperties,
+  };
 };
 
 export default useProperties;

@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import SortableTableCell from "./SortableTableCell";
 
 export interface Row {
   id: string;
@@ -19,18 +20,42 @@ export interface Row {
 
 interface CustomTableProps {
   rows: Row[];
+  selectedKey: string;
+  order: string;
+  onSort: (property: string) => void;
 }
 
-const CustomTable = ({ rows }: CustomTableProps) => {
+const CustomTable = ({
+  rows,
+  selectedKey,
+  order,
+  onSort,
+}: CustomTableProps) => {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="properties table" className="table">
         <TableHead>
           <TableRow>
             <TableCell>Image</TableCell>
-            <TableCell>Title</TableCell>
-            <TableCell>City</TableCell>
-            <TableCell>Address</TableCell>
+            <SortableTableCell
+              label="title"
+              selectedKey={selectedKey}
+              order={order}
+              handleClick={onSort}
+            />
+            <SortableTableCell
+              label="city"
+              selectedKey={selectedKey}
+              order={order}
+              handleClick={onSort}
+            />
+            <SortableTableCell
+              label="address"
+              selectedKey={selectedKey}
+              order={order}
+              handleClick={onSort}
+            />
+
             <TableCell>Link</TableCell>
           </TableRow>
         </TableHead>

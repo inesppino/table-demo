@@ -11,8 +11,19 @@ const PropertySchema = z.object({
 
 export type Property = z.infer<typeof PropertySchema>;
 
-export const fetchAllProperties = async (): Promise<Property[]> => {
-  const response = await fetch("http://localhost:3000/api/properties");
+interface FetchAllPropertiesOptions {
+  key: string;
+  order: string;
+}
+
+export const fetchAllProperties = async (
+  options?: FetchAllPropertiesOptions
+): Promise<Property[]> => {
+  const url = options
+    ? "http://localhost:3000/api/properties?" +
+      new URLSearchParams({ ...options }).toString()
+    : "http://localhost:3000/api/properties?";
+  const response = await fetch(url);
   const data = await response.json();
   return data;
 };

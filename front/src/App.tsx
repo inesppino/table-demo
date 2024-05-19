@@ -4,10 +4,23 @@ import HomeIcon from "@mui/icons-material/Home";
 import useProperties from "./hook/useProperties";
 import Loading from "./components/Loading";
 import ErrorFeedback from "./components/ErrorFeedback";
+import { useState } from "react";
 
 function App() {
-  const { loading, error, properties, refetch } = useProperties();
+  const [sort, setSort] = useState<"asc" | "desc">("desc");
+  const [key, setKey] = useState<string>("");
+  const { loading, error, properties, refetch } = useProperties(sort, key);
 
+  const handleSort = (property: string) => {
+    let order = sort;
+    if (property === key) {
+      order = sort === "asc" ? "desc" : "asc";
+    } else {
+      order = "asc";
+    }
+    setKey(property);
+    setSort(order);
+  };
   return (
     <>
       <header className="header">
@@ -27,7 +40,12 @@ function App() {
             <Typography variant="h2" align="left" gutterBottom>
               Properties
             </Typography>
-            <CustomTable rows={properties} />
+            <CustomTable
+              rows={properties}
+              onSort={handleSort}
+              selectedKey={key}
+              order={sort}
+            />
           </Container>
         ) : (
           <p>No properties found</p>
