@@ -14,7 +14,7 @@ const SortableTableCell = ({
   handleClick,
 }: SortableTableCellProps) => {
   return (
-    <TableCell onClick={() => handleClick(label)}>
+    <TableCell sx={{ cursor: "pointer" }} onClick={() => handleClick(label)}>
       {label === selectedKey ? (order === "asc" ? "↑ " : "↓ ") : ""}
       {label}
     </TableCell>
